@@ -1,0 +1,14 @@
+{[ let extension = asset.format /]}
+
+{* Generate name as [originalName][-numberOfDuplicates][extension] *}
+{[ let duplicateExtension = (asset.previouslyDuplicatedNames > 0 ? ("-" + asset.previouslyDuplicatedNames) : "") /]}
+{[ let name = (asset.originalName + duplicateExtension +  "." + asset.format) /]}
+
+{* Generate path from segments. Path remains the same *}
+{[ let path = (asset.group.path.append(asset.group.name).append((asset.originalName + ".imageset")).join("/")) /]}
+
+{* Generate asset path *}
+Assets.xcassets/{{ path + "/" }}{{ name }}
+
+
+

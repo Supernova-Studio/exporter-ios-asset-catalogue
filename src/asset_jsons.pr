@@ -1,0 +1,40 @@
+{[ let brand = ds.currentBrand() /]}
+{[ let groups = ds.allAssetGroups(brand.id) /]}
+
+{* Note: In here, we are using actual asset object. In the asset_path blueprint, we are using RenderedAsset object, which is bit different in its structure. }
+
+{* Generate jsons for each asset that is available *}
+{[ for group in groups ]}
+    {[ for assetId in group.assetIds ]}
+        {* Retrieve each asset *}
+        {[ let asset = ds.assetById(assetId) /]}
+
+        {* Generate name as [originalName][-numberOfDuplicates][extension] *}
+        {[ let duplicateExtension = (asset.previouslyDuplicatedNames > 0 ? ("-" + asset.previouslyDuplicatedNames) : "") /]}
+        {[ let name = (asset.originalName + duplicateExtension +  "." + asset.format) /]}
+
+        {* Generate path from segments. Path remains the same *}
+        {[ let path = (group.path.append(group.name).append((asset.name + ".imageset")).join("/")) /]}
+
+        {* Emit JSON file for each of the assets *}
+        {[ emit file ("Assets.xcassets/" + path + "/" + "Contents.json") ]}
+{
+  "images" : [
+    {
+      "filename" : "{{ asset.name }}.pdf",
+      "idiom" : "universal",
+      "scale" : "1x"
+    }
+  ],
+  "info" : {
+    "author" : "Supernova",
+    "version" : 1
+  },
+  "properties" : {
+    "preserves-vector-representation" : true
+  }
+}
+        {[/]}
+    {[/]}
+{[/]}
+
