@@ -2,7 +2,7 @@
     "blueprints": [{
         "invoke": "asset_jsons.pr",
         "write_to": "",
-        "virtual": true
+        "emit_only": true
     }],
     "assets": [{
         "write_using": "asset_path.pr",
