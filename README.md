@@ -4,44 +4,48 @@
 [Supernova](https://supernova.io) is a design system platform that manages your assets, tokens, components and allows you to write spectacular documentations for your entire teams. And because you found your way here, you are probably interested in its most advanced functionality - automatic hand-off of design and development assets, tokens and data in general. To learn everything Supernova, please check out our [developer documentation](https://developers.supernova.io/).
 
 
-# SVG Asset Exporter
+# iOS Catalogue Asset Exporter
 
-The SVG Asset exporter allows you to **export a list of images** in such a way that it can be immediately used in your production codebase. This specific exporter exports assets in generic fashion, as SVG format, without any additional formatting or generated support files. 
+The iOS Catalogue Asset exporter allows you to **export a XCode asset catalogue** in such a way that it can be immediately used in your production codebase. 
 
 ### Exporter Output
 
-This exporter will render image assets defined inside one specific brand and will produce the following structure:
+This exporter will render image assets defined inside one specific brand as pdfs and will produce the following structure:
 
 ```
-/icons
-   /top_menu
-      |- burger.svg
-      |- user.svg
+/Icons
+   /Top Menu
+      |- Burger [pdf, preserve vector data]
+      |- User [pdf, preserve vector data]
 ```
 
 ### Naming
 
-The names of icons will be constructed from the original name and path built from segments which correspond to groups the Supernova (and Figma) groups. For example:
+The names of icons will be constructed from the original name and path built from segments which correspond to groups the Supernova (and Figma) groups. This exporter also generates required `Contents.json` files for each asset. For example:
 
 ```
 Icons
   |- Top Menu
-     |- burger
-     |- user
+     |- Burger
+     |- User
 ```
 
-Names follow `icon-name` convention and will create separate directories for each group detected, also following `directory-name` convention. The above example will be converted to the following icon paths:
+Names follow `Original Icon Name` convention and will create separate directories for each group detected, also following `Original Directory` convention. The above example will be converted to the following icon paths:
 
 ```
-/icons/top-menu/burger.svg
-/icons/top-menu/user.svg
+Assets.xcassets/Icons/Top Menu/Burger.pdf
+Assets.xcassets/Icons/Top Menu/User.pdf
+
+& Support files
+Assets.xcassets/Icons/Top Menu/Contents.json
+Assets.xcassets/Icons/Top Menu/Contents.json
 ```
 
-This behavior can be fully customized by simply modifying the path generation template file `asset_path.pr`. Simply fork, modify and upload as your version of the exporter. If you have never done this before, [follow our guide to modifying existing exporters](https://developers.supernova.io/building-exporters/cloning-exporters).
+This behavior can be fully customized by simply modifying the path generation template file `asset_path.pr` and additionally modifying configuration for each of the images in `asset_jsons.pr`. Simply fork, modify and upload as your version of the exporter. If you have never done this before, [follow our guide to modifying existing exporters](https://developers.supernova.io/building-exporters/cloning-exporters).
 
 ## Installing
 
-In order to make the Supernova SVG Asset exporter available for your organization so you can start generating code from your design system, please follow the installation guide in our [developer documentation](https://developers.supernova.io/using-exporters/installing-exporters).
+In order to make the Supernova iOS Asset Catalogue exporter available for your organization so you can start generating code from your design system, please follow the installation guide in our [developer documentation](https://developers.supernova.io/using-exporters/installing-exporters).
 
 
 ## Reporting Bugs or Requesting Features
