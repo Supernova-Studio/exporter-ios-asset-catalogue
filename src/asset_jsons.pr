@@ -1,3 +1,4 @@
+{* Get current exported brand. Asset exporters only work in brand-specific mode *}
 {[ let brand = ds.currentBrand() /]}
 {[ let groups = ds.allAssetGroups(brand.id) /]}
 
@@ -16,7 +17,10 @@
         {* Generate path from segments. Path remains the same *}
         {[ let path = (group.path.append(group.name).append((asset.name + ".imageset")).join("/")) /]}
 
-        {* Emit JSON file for each of the assets *}
+        {* Emit JSON file for each of the assets. 
+           The file contains the payload needed to define basic information inside XCode catalogue entry. 
+           Please note that by default, everything preserves vector representation, which is a preferred choice for this usecase
+        *}
         {[ emit file ("Assets.xcassets/" + path + "/" + "Contents.json") ]}
 {
   "images" : [
